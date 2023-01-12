@@ -21,7 +21,7 @@ const NoteState=(props)=>{
       setnotes(data);
       }
       
-      const addNote = async (title, description,date,status) => {
+      const addNote = async (title, description, tag) => {
         // TODO: API Call
         // API Call 
         const response = await fetch(`${host}api/notes/addnote`, {
@@ -30,8 +30,9 @@ const NoteState=(props)=>{
             'Content-Type': 'application/json',
             "auth-token": localStorage.getItem('token')
           },
-          body: JSON.stringify({title, description, status,date})
+          body: JSON.stringify({title, description, tag})
         });
+    
         const note = await response.json();
         setnotes(notes.concat(note))
       }
@@ -57,9 +58,8 @@ const NoteState=(props)=>{
       }
 
       //Edit a Note
-      const editNote=async(id,title,description,date,status)=>{
+      const editNote=async(id,title,description,tag)=>{
         //updating database
-        console.log(id,title,description,date,status);
         const url=`${host}api/notes/updatenote/${id}`;
         const res=await fetch(url,{method:"PUT",
         headers:{
@@ -67,7 +67,7 @@ const NoteState=(props)=>{
           'auth-token':localStorage.getItem('token')
         }
         ,
-        body:JSON.stringify({title,description,date,status}),
+        body:JSON.stringify({title,description,tag}),
       });
        const json=res.json();
        //updating clint side
@@ -77,8 +77,7 @@ const NoteState=(props)=>{
           if(notes[index]._id===id){
             const element=notes[index];
             element.title=title;
-            element.date=date
-            element.status=status;
+            element.tag=tag;
             element.description=description;
             newnotes[index]=element;
           }
@@ -90,6 +89,8 @@ const NoteState=(props)=>{
     //to logout
     const logOut=()=>{
       localStorage.removeItem('token');
+     
+      
       }
 
     return (

@@ -12,11 +12,10 @@ const NotesSchema=new Schema({
     description:{
         type:String,
         required:true,
-
     },
-    tag:{
+    status:{
         type:String,
-        default:'general'
+        default:'active'
     },
     date:{
         type:Date,

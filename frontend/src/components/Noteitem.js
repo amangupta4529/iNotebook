@@ -24,8 +24,8 @@ export default function Noteitem(props){
               <p style={{overflowY:"auto",maxHeight:'23vh',minHeight:"10vh"}}>
                {note.description}
               </p>
-              {note.status!="" &&
-            <h5 style={{backgroundColor:'#309df0' ,borderRadius:'10px' ,padding:"4px",color:"white",display:"inline",marginTop:"20px"} }>{note.status}</h5>}
+              {note.tag!="" &&
+            <h5 style={{backgroundColor:'#309df0' ,borderRadius:'10px' ,padding:"4px",color:"white",display:"inline",marginTop:"20px"} }>{note.tag}</h5>}
               <i className="fas fa-trash mx-3" onClick={()=>{deleteNote(note._id);
             props.alert("successfully Deleted","success");}
               }></i>

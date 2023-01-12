@@ -15,19 +15,17 @@ const Notes = (props) => {
     }, [])
     const ref = useRef(null)
     const refClose = useRef(null)
-    const [note, setNote] = useState({id:"",etitle: "", edescription: "", estatus: ""})
+    const [note, setNote] = useState({id:"",etitle: "", edescription: "", etag: ""})
     const updateNote = (currentNote) => {
         ref.current.click();
-        console.log(currentNote);
-        setNote({id:currentNote._id,etitle: currentNote.title,edescription: currentNote.description, estatus:currentNote.status})
+        setNote({id:currentNote._id,etitle: currentNote.title,edescription: currentNote.description, etag:currentNote.tag})
     }
     const handleClick = ()=>{
-        editNote(note.id, note.etitle, note.edescription, note.estatus)
+        editNote(note.id, note.etitle, note.edescription, note.etag)
         refClose.current.click();
     }
 
     const onChange = (e)=>{
-        console.log(e.target.name,e.target.value);
         setNote({...note,[e.target.name]: e.target.value})
     }
 
@@ -55,13 +53,10 @@ const Notes = (props) => {
                                     <input type="text" className="form-control" id="edescription" name="edescription" value={note.edescription} onChange={onChange} minLength={5} required/>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="estatus" className="form-label">status</label>
-                                    {/* <input type="text" className="form-control" id="estatus" name="estatus" value={note.estatus} onChange={onChange} /> */}
-                                    <select id="estatus" onChange={onChange} name="estatus">
-                                    <option value="active">Active</option>
-                                    <option value="completed">completed</option>
-                                    </select>
+                                    <label htmlFor="tag" className="form-label">Tag</label>
+                                    <input type="text" className="form-control" id="etag" name="etag" value={note.etag} onChange={onChange} />
                                 </div>
+ 
                             </form>
                         </div>
                         <div className="modal-footer">

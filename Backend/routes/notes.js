@@ -6,6 +6,7 @@ const { body, validationResult } = require("express-validator");
 //Route 1 :get all the Note
 router.get("/fetchallnotes", fetchuser, async (req, res) => {
     try {
+      
         const notes = await Note.find({user: req.user.id});
         console.log(notes);
         res.send(notes);
@@ -29,13 +30,13 @@ router.post(
     console.log(req.body);
     const error = validationResult(req);
     try { 
-      const { title, description, tag } = req.body;
+      const { title, description, status } = req.body;
       if (!error.isEmpty) {
         return res.status(400).json({ errors: errors.array() });
       }
       
     const note = new Note({
-      title, description, tag, user: req.user.id
+      title, description, status, user: req.user.id
     });
     console.log(req.user.id);
     const saveNote=await note.save();
@@ -61,11 +62,12 @@ router.delete('/deletenote/:id',fetchuser,async(req,res)=>{
 
 router.put('/updatenote/:id',fetchuser ,async(req,res)=>{
   console.log(req.body);
-  const {title,description,tag}=req.body;
+  const {title,description,status,date}=req.body;
   const newnote={};
   if(title){newnote.title=title};
   if(description){newnote.description=description};
-  if(tag){newnote.tag=tag};
+  if(status){newnote.status=status};
+  if(date){newnote.date=date};
   //find the node need to be update
   const note=await Note.findById(req.params.id);
   if(!note){

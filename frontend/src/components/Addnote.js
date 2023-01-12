@@ -6,10 +6,9 @@ export default function Addnote() {
     const {addNote} = context;
     const [note, setnote] = useState({title:"",description:"",status:"active",date:new Date()})
     const handleClick=(e)=>{
-        e.preventDefault({title:"",description:"",status:""});
-        console.log();
+        e.preventDefault({title:"",description:"",tag:""});
         addNote(note.title,note.description,note.date,note.status);
-        setnote({title:"",description:"",date:"",status:"active"})
+        setnote({title:"",description:"",tag:""})
     }
     const onchange=(e)=>{
         setnote({...note,[e.target.name]:e.target.value});
@@ -55,7 +54,7 @@ let year = date.getFullYear();
           />
         </div>
         <div className="mb-3 form-label">
-        <label className="form-label" htmlFor="date">
+        <label className="form-label" htmlFor="tag">
            Date
           </label>
           <input
